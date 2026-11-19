@@ -1,13 +1,63 @@
 @import "tailwindcss";
 
+/* ── Theme tokens ─────────────────────────────────────────────── */
+:root,
+[data-theme="dark"] {
+  --c-bg: #0A0A0C;
+  --c-surface: #121216;
+  --c-surface-2: #1B1B21;
+  --c-ink: #F5F2EB;
+  --c-silver: #A3A3AB;
+  --c-ash: #A3A3AB;
+  --c-gold: #D4AF37;
+  --c-gold-soft: #E8D7A1;
+  --c-on-gold: #0A0A0C;
+  --c-line: rgba(255, 255, 255, 0.10);
+  --c-line-strong: rgba(255, 255, 255, 0.20);
+  --c-hover: rgba(255, 255, 255, 0.05);
+  --c-glass: rgba(255, 255, 255, 0.03);
+  --c-vignette: rgba(10, 10, 12, 0.72);
+  --c-wash: rgba(10, 10, 12, 0.30);
+  --c-grain: 0.07;
+  --c-cursor: #D4AF37;
+  color-scheme: dark;
+}
+
+[data-theme="day"] {
+  --c-bg: #F8F6F1;
+  --c-surface: #FFFFFF;
+  --c-surface-2: #EFEBE2;
+  --c-ink: #141416;
+  --c-silver: #4B4E57;
+  --c-ash: #5E626C;
+  --c-gold: #9A7B2C;
+  --c-gold-soft: #B8962F;
+  --c-on-gold: #FFFFFF;
+  --c-line: rgba(20, 20, 22, 0.12);
+  --c-line-strong: rgba(20, 20, 22, 0.28);
+  --c-hover: rgba(20, 20, 22, 0.05);
+  --c-glass: rgba(255, 255, 255, 0.78);
+  --c-vignette: rgba(248, 246, 241, 0.78);
+  --c-wash: rgba(248, 246, 241, 0.78);
+  --c-grain: 0.035;
+  --c-cursor: #9A7B2C;
+  color-scheme: light;
+}
+
 @theme {
-  --color-obsidian: #0a0a0a;
-  --color-obsidian-2: #121212;
-  --color-obsidian-3: #1b1b1b;
-  --color-champagne: #efe3c2;
-  --color-gold: #d4af37;
-  --color-gold-soft: #e8d7a1;
-  --color-ash: #8c8c8c;
+  --color-obsidian: var(--c-bg);
+  --color-obsidian-2: var(--c-surface);
+  --color-obsidian-3: var(--c-surface-2);
+  --color-champagne: var(--c-ink);
+  --color-silver: var(--c-silver);
+  --color-gold: var(--c-gold);
+  --color-gold-soft: var(--c-gold-soft);
+  --color-on-gold: var(--c-on-gold);
+  --color-ash: var(--c-ash);
+  --color-line: var(--c-line);
+  --color-line-strong: var(--c-line-strong);
+  --color-hover: var(--c-hover);
+  --color-glass: var(--c-glass);
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
@@ -20,9 +70,10 @@
   body {
     @apply bg-obsidian text-champagne font-sans antialiased;
     overflow-x: hidden;
+    transition: background-color 0.6s ease, color 0.6s ease;
   }
-  ::selection { background: var(--color-gold); color: var(--color-obsidian); }
-  :focus-visible { outline: 1px solid var(--color-gold); outline-offset: 4px; }
+  ::selection { background: var(--c-gold); color: var(--c-on-gold); }
+  :focus-visible { outline: 1px solid var(--c-gold); outline-offset: 4px; }
 }
 
 @layer components {
@@ -34,13 +85,13 @@
     @apply font-normal leading-[0.95] tracking-tight;
   }
   .glass {
-    @apply border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+    @apply border border-line bg-glass backdrop-blur-sm;
   }
   .btn-gold {
-    @apply inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-obsidian transition hover:bg-gold-soft;
+    @apply inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-medium text-on-gold transition hover:opacity-90;
   }
   .btn-ghost {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm text-champagne transition hover:border-gold hover:text-gold;
+    @apply inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-3 text-sm text-champagne transition hover:border-gold hover:text-gold;
   }
   .section {
     @apply relative mx-auto w-full max-w-6xl px-6 py-28 md:px-10;
@@ -53,7 +104,7 @@
   position: fixed;
   inset: -50%;
   z-index: 60;
-  opacity: 0.07;
+  opacity: var(--c-grain);
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   animation: grain 1s steps(6) infinite;
 }
@@ -65,19 +116,15 @@
   80% { transform: translate(3%, -1%); }
 }
 
-/* Hero portrait Ken Burns */
-.ken-burns {
-  animation: ken-burns 14s ease-out both;
-}
-@keyframes ken-burns {
-  from { transform: scale(1.12); }
-  to { transform: scale(1); }
+/* Scroll-driven movie background: GPU-composited layers */
+.movie-layer video {
+  backface-visibility: hidden;
 }
 
-/* Custom cursor only on fine pointers */
+/* Custom cursor only on fine pointers (no blend modes, so faces never invert) */
 .has-cursor, .has-cursor * { cursor: none !important; }
 
-/* Print: produce a clean one-page-friendly resume */
+/* Print: clean resume */
 @media print {
   @page { margin: 14mm; }
   body * { visibility: hidden !important; }
@@ -90,5 +137,5 @@
     padding: 0 !important;
   }
   .print-area * { color: #111 !important; border-color: #ccc !important; }
-  .no-print, .grain, nav, footer { display: none !important; }
+  .no-print, .grain, nav, footer, .movie-layer { display: none !important; }
 }

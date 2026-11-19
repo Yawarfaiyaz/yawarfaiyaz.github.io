@@ -3,7 +3,7 @@ import { useConfig } from '../context/ConfigContext';
 export default function Footer() {
   const { config } = useConfig();
   return (
-    <footer className="border-t border-white/10 no-print">
+    <footer className="border-t border-line no-print">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 font-mono text-xs text-ash md:flex-row md:px-10">
         <p>© {new Date().getFullYear()} {config.name}. Built with React, GSAP & Three.js.</p>
         <div className="flex gap-6">

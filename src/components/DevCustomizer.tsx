@@ -21,7 +21,7 @@ export default function DevCustomizer() {
                 rows={field === 'bio' ? 4 : 1}
                 value={config[field]}
                 onChange={(e) => setConfig({ ...config, [field]: e.target.value })}
-                className="w-full rounded-lg border border-white/10 bg-obsidian p-2 text-champagne outline-none focus:border-gold"
+                className="w-full rounded-lg border border-line bg-obsidian p-2 text-champagne outline-none focus:border-gold"
               />
             </label>
           ))}

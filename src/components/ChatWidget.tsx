@@ -205,7 +205,7 @@ export default function ChatWidget() {
           data-cursor="EXPLORE"
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.94 }}
-          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold text-obsidian shadow-[0_0_30px_rgba(212,175,55,0.45)]"
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-gold text-on-gold shadow-[0_0_30px_rgba(212,175,55,0.45)]"
         >
           <span className="absolute inset-0 animate-ping rounded-full bg-gold/30" aria-hidden="true" />
           <svg viewBox="0 0 24 24" className="relative h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -227,7 +227,7 @@ export default function ChatWidget() {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-x-3 bottom-24 z-[85] flex h-[min(38rem,72vh)] flex-col overflow-hidden rounded-[1.75rem] border border-gold/25 bg-obsidian-2/90 shadow-2xl backdrop-blur-xl sm:inset-x-auto sm:right-6 sm:w-[380px]"
           >
-            <header className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+            <header className="flex items-center justify-between border-b border-line px-5 py-4">
               <div className="flex items-center gap-3">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/60" />
@@ -239,10 +239,10 @@ export default function ChatWidget() {
                 </div>
               </div>
               <div className="flex items-center gap-1">
-                <button type="button" onClick={clearHistory} aria-label="Clear chat history" className="rounded-full p-2 text-ash transition hover:bg-white/5 hover:text-gold">
+                <button type="button" onClick={clearHistory} aria-label="Clear chat history" className="rounded-full p-2 text-ash transition hover:bg-hover hover:text-gold">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" /></svg>
                 </button>
-                <button type="button" onClick={() => setOpen(false)} aria-label="Minimize chat" className="rounded-full p-2 text-ash transition hover:bg-white/5 hover:text-gold">
+                <button type="button" onClick={() => setOpen(false)} aria-label="Minimize chat" className="rounded-full p-2 text-ash transition hover:bg-hover hover:text-gold">
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 12h14" /></svg>
                 </button>
               </div>
@@ -253,14 +253,14 @@ export default function ChatWidget() {
                 <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'}`}>
                   <div
                     className={`max-w-[85%] whitespace-pre-line rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                      m.role === 'user' ? 'rounded-br-sm bg-gold text-obsidian' : 'rounded-bl-sm border border-white/10 bg-white/[0.04] text-champagne/90'
+                      m.role === 'user' ? 'rounded-br-sm bg-gold text-on-gold' : 'rounded-bl-sm border border-line bg-glass text-champagne/90'
                     }`}
                   >
                     {m.text}
                   </div>
 
                   {m.card && (
-                    <div className="mt-2 w-[85%] rounded-2xl border border-gold/30 bg-white/[0.03] p-4 text-xs text-champagne/85">
+                    <div className="mt-2 w-[85%] rounded-2xl border border-gold/30 bg-glass p-4 text-xs text-champagne/85">
                       <p><span className="text-ash">Name:</span> {draft.current.name}</p>
                       <p><span className="text-ash">Email:</span> {draft.current.email}</p>
                       <p className="mt-2 whitespace-pre-line"><span className="text-ash">Message:</span> {draft.current.message}</p>
@@ -282,7 +282,7 @@ export default function ChatWidget() {
                           key={c}
                           type="button"
                           onClick={() => handleChip(c)}
-                          className="rounded-full border border-gold/40 px-3 py-1.5 text-left text-xs text-gold-soft transition hover:bg-gold hover:text-obsidian"
+                          className="rounded-full border border-gold/40 px-3 py-1.5 text-left text-xs text-gold-soft transition hover:bg-gold hover:text-on-gold"
                         >
                           {c}
                         </button>
@@ -302,7 +302,7 @@ export default function ChatWidget() {
               <div ref={endRef} />
             </div>
 
-            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-white/10 p-4">
+            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-line p-4">
               {/* Honeypot: hidden from people, often auto-filled by spam bots */}
               <input
                 type="text"
@@ -323,13 +323,13 @@ export default function ChatWidget() {
                 disabled={step === 'sending'}
                 maxLength={1500}
                 type={step === 'email' ? 'email' : 'text'}
-                className="flex-1 rounded-full border border-white/10 bg-obsidian px-4 py-2.5 text-sm text-champagne outline-none transition placeholder:text-ash focus:border-gold disabled:opacity-50"
+                className="flex-1 rounded-full border border-line bg-obsidian px-4 py-2.5 text-sm text-champagne outline-none transition placeholder:text-ash focus:border-gold disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || step === 'sending'}
                 aria-label="Send"
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold text-obsidian transition hover:bg-gold-soft disabled:opacity-40"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold text-on-gold transition hover:bg-gold-soft disabled:opacity-40"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </button>

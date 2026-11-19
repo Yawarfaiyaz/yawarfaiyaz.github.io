@@ -51,7 +51,7 @@ export default function Resume() {
 
       <Reveal className="mb-16">
         <h3 className="eyebrow mb-8">Projects</h3>
-        <ol className="relative space-y-10 border-l border-white/10 pl-8">
+        <ol className="relative space-y-10 border-l border-line pl-8">
           {config.projects.map((p) => (
             <li key={p.id} className="relative">
               <span className="absolute -left-[37px] top-2 h-2.5 w-2.5 rounded-full bg-gold" />
@@ -69,7 +69,7 @@ export default function Resume() {
 
       <Reveal className="mb-16">
         <h3 className="eyebrow mb-8">Education</h3>
-        <ol className="relative space-y-10 border-l border-white/10 pl-8">
+        <ol className="relative space-y-10 border-l border-line pl-8">
           {config.education.map((e) => (
             <li key={e.title} className="relative">
               <span className="absolute -left-[37px] top-2 h-2.5 w-2.5 rounded-full bg-gold" />

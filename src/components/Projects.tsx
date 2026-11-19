@@ -52,7 +52,7 @@ function CaseStudyModal({ project, onClose }: { project: CaseStudy; onClose: () 
           {project.metrics && (
             <dl className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
               {project.metrics.map((m) => (
-                <div key={m.label} className="rounded-2xl border border-white/10 p-4">
+                <div key={m.label} className="rounded-2xl border border-line p-4">
                   <dt className="font-mono text-[10px] uppercase tracking-widest text-ash">{m.label}</dt>
                   <dd className="mt-2 font-display text-2xl text-gold">{m.value}</dd>
                 </div>
@@ -72,7 +72,7 @@ function CaseStudyModal({ project, onClose }: { project: CaseStudy; onClose: () 
 
           <div className="mt-10 flex flex-wrap gap-2">
             {project.tags.map((t) => (
-              <span key={t} className="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-champagne/70">
+              <span key={t} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] text-champagne/70">
                 {t}
               </span>
             ))}
@@ -124,7 +124,7 @@ export default function Projects() {
                 <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-ash">{project.summary}</p>
                 <div className="mt-6 flex flex-wrap gap-2">
                   {project.tags.slice(0, 5).map((t) => (
-                    <span key={t} className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[10px] text-champagne/70">
+                    <span key={t} className="rounded-full border border-line px-2.5 py-1 font-mono text-[10px] text-champagne/70">
                       {t}
                     </span>
                   ))}

@@ -3,8 +3,10 @@ import Lenis from 'lenis';
 import { gsap, ScrollTrigger } from './lib/gsap';
 import { ConfigProvider } from './context/ConfigContext';
 import { ToastProvider } from './context/ToastContext';
+import { UiProvider, useUi } from './context/UiContext';
 import Preloader from './components/Preloader';
 import Cursor from './components/Cursor';
+import MovieBackground from './components/MovieBackground';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -14,10 +16,11 @@ import Learning from './components/Learning';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import DevCustomizer from './components/DevCustomizer';
 import ChatWidget from './components/ChatWidget';
+import DevCustomizer from './components/DevCustomizer';
 
 function Site() {
+  const { fx } = useUi();
   const [ready, setReady] = useState(false);
   const handleReady = useCallback(() => setReady(true), []);
 
@@ -40,7 +43,8 @@ function Site() {
 
   return (
     <>
-      <div className="grain" aria-hidden="true" />
+      <MovieBackground />
+      {fx && <div className="grain" aria-hidden="true" />}
       <Cursor />
       {!ready && <Preloader onDone={handleReady} />}
       <Nav />
@@ -62,10 +66,12 @@ function Site() {
 
 export default function App() {
   return (
-    <ConfigProvider>
-      <ToastProvider>
-        <Site />
-      </ToastProvider>
-    </ConfigProvider>
+    <UiProvider>
+      <ConfigProvider>
+        <ToastProvider>
+          <Site />
+        </ToastProvider>
+      </ConfigProvider>
+    </UiProvider>
   );
 }
