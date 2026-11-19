@@ -15,6 +15,7 @@ import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import DevCustomizer from './components/DevCustomizer';
+import ChatWidget from './components/ChatWidget';
 
 function Site() {
   const [ready, setReady] = useState(false);
@@ -53,6 +54,7 @@ function Site() {
         <Contact />
       </main>
       <Footer />
+      <ChatWidget />
       {import.meta.env.DEV && <DevCustomizer />}
     </>
   );

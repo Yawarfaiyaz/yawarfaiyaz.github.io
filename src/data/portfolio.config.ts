@@ -56,6 +56,12 @@ export interface PortfolioConfig {
   tagline: string;
   bio: string;
   email: string;
+  /**
+   * Web3Forms access key (free at https://web3forms.com). Access keys are designed to be
+   * public in client-side forms, so it is safe to commit. Leave the placeholder to use the
+   * mailto: fallback instead.
+   */
+  emailAccessKey: string;
   photo: Photo;
   links: {
     github: string;
@@ -76,6 +82,7 @@ export const portfolio: PortfolioConfig = {
   tagline: 'DevOps & Cloud Engineer, automating AWS infrastructure safely',
   bio: 'Aspiring DevOps and Cloud Engineer (B.Tech IT, Class of 2027) building automated, fault-tolerant AWS infrastructure with Terraform, Python (Boto3), GitHub Actions, Docker, and Kubernetes.',
   email: 'asjdbkhbyawar@gmail.com',
+  emailAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
 
   photo: {
     // Default: GitHub avatar. To use a local file instead, set src: '/images/portrait.jpg'
