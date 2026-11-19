@@ -27,7 +27,7 @@ export default function Resume() {
   return (
     <section id="resume" className="section print-area">
       <div className="no-print">
-        <SectionHeading eyebrow="Executive resume" title="Experience & education" />
+        <SectionHeading eyebrow="Executive resume" title="Resume" />
       </div>
 
       <div className="mb-12 flex flex-wrap gap-4 no-print">
