@@ -51,11 +51,23 @@ export interface TimelineItem {
   detail?: string;
 }
 
+export interface MovieScene {
+  id: string;
+  label: string;
+  src: string;
+  startTime: number;
+  endTime: number;
+  sections: string[];
+}
+
 export interface PortfolioConfig {
   name: string;
   tagline: string;
   bio: string;
   email: string;
+  emailAccessKey: string;
+  cursorColorMode: 'live-video' | 'theme-accent';
+  movieScenes: MovieScene[];
   photo: Photo;
   links: {
     github: string;
@@ -77,6 +89,13 @@ export const portfolio: PortfolioConfig = {
   bio: 'Aspiring DevOps and Cloud Engineer (B.Tech IT, Class of 2027) building automated, fault-tolerant AWS infrastructure with Terraform, Python (Boto3), GitHub Actions, Docker, and Kubernetes.',
   email: 'asjdbkhbyawar@gmail.com',
 
+  emailAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
+  cursorColorMode: 'live-video',
+  movieScenes: [
+    { id: 'scene-1', label: 'Opening rooftop launch', src: '/videos/scene-1.mp4', startTime: 0, endTime: 4.5, sections: ['hero', 'about'] },
+    { id: 'scene-2', label: 'Mid-air skyline swing', src: '/videos/scene-2.mp4', startTime: 4.5, endTime: 9, sections: ['skills', 'projects'] },
+    { id: 'scene-3', label: 'Horizon landing', src: '/videos/scene-3.mp4', startTime: 9, endTime: 13, sections: ['learning', 'resume', 'contact'] },
+  ],
   photo: {
     // Default: GitHub avatar. To use a local file instead, set src: '/images/portrait.jpg'
     src: 'https://github.com/Yawarfaiyaz.png',
