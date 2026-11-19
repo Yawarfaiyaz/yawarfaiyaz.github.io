@@ -1,22 +1,37 @@
-import { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useRef, type MouseEvent } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { gsap } from '../lib/gsap';
 import { useConfig } from '../context/ConfigContext';
-import { useUi } from '../context/UiContext';
 import ParticleField from './ParticleField';
+import LiquidImage from './LiquidImage';
 
 export default function Hero({ ready }: { ready: boolean }) {
   const { config } = useConfig();
-  const { fx } = useUi();
   const section = useRef<HTMLElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
 
-  // Scroll-linked depth parallax (translation only, so the frame stays straight)
+  // Multi-layer scroll parallax
   const { scrollYProgress } = useScroll({ target: section, offset: ['start start', 'end start'] });
-  const frameY = useTransform(scrollYProgress, [0, 1], [0, 140]);
+  const frameY = useTransform(scrollYProgress, [0, 1], [0, 160]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 260]);
+
+  // 3D mouse-tilt physics on the portrait frame
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-9, 9]), { stiffness: 140, damping: 18 });
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [8, -8]), { stiffness: 140, damping: 18 });
+
+  const onTiltMove = (e: MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set((e.clientX - r.left) / r.width - 0.5);
+    my.set((e.clientY - r.top) / r.height - 0.5);
+  };
+  const onTiltLeave = () => {
+    mx.set(0);
+    my.set(0);
+  };
 
   // Staggered kinetic reveal once the preloader has finished
   useEffect(() => {
@@ -32,16 +47,16 @@ export default function Hero({ ready }: { ready: boolean }) {
 
   return (
     <section id="home" ref={section} className="relative min-h-screen overflow-hidden">
+      {/* Atmospheric lighting */}
       <motion.div style={{ y: bgY }} className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute -left-40 top-1/4 h-[32rem] w-[32rem] rounded-full bg-gold/10 blur-[120px]" />
         <div className="absolute right-0 top-0 h-[26rem] w-[26rem] rounded-full bg-gold-soft/10 blur-[110px]" />
       </motion.div>
 
-      {fx && (
-        <div className="absolute inset-0 opacity-80" aria-hidden="true">
-          <ParticleField className="h-full w-full" />
-        </div>
-      )}
+      {/* WebGL ambient particles + centrepiece */}
+      <div className="absolute inset-0 -z-0 opacity-80" aria-hidden="true">
+        <ParticleField className="h-full w-full" />
+      </div>
 
       <div className="relative mx-auto grid min-h-screen w-full max-w-6xl items-center gap-12 px-6 pb-24 pt-32 md:grid-cols-[1.1fr_0.9fr] md:px-10">
         <motion.div style={{ y: textY }} className="order-2 md:order-1">
@@ -70,20 +85,21 @@ export default function Hero({ ready }: { ready: boolean }) {
           </div>
         </motion.div>
 
-        {/* Portrait: undistorted. Hover adds a 2% zoom and a crisp gold border only. */}
-        <motion.div style={{ y: frameY }} className="order-1 flex justify-center md:order-2">
-          <div className="glass relative aspect-[4/5] w-full max-w-sm rounded-[2rem] p-3">
-            <div className="group relative h-full w-full overflow-hidden rounded-[1.5rem] border border-line transition-colors duration-500 hover:border-gold">
-              <img
-                src={config.photo.src}
-                alt={config.photo.alt}
-                loading="eager"
-                data-cursor="VIEW"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-              />
+        {/* Portrait with 3D tilt + scroll-linked depth */}
+        <motion.div style={{ y: frameY, perspective: 900 }} className="order-1 flex justify-center md:order-2">
+          <motion.div
+            onMouseMove={onTiltMove}
+            onMouseLeave={onTiltLeave}
+            style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
+            className="glass relative aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] p-3"
+          >
+            <div className="relative h-full w-full overflow-hidden rounded-[1.5rem]">
+              <LiquidImage src={config.photo.src} alt={config.photo.alt} />
             </div>
-            <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.25em] text-gold-soft">Scroll ↓</span>
-          </div>
+            <span className="absolute bottom-6 left-6 font-mono text-[10px] uppercase tracking-[0.25em] text-gold-soft">
+              Scroll ↓
+            </span>
+          </motion.div>
         </motion.div>
       </div>
     </section>

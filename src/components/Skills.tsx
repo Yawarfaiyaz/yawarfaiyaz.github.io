@@ -36,7 +36,7 @@ function Meter({ name, level }: { name: string; level: number }) {
           <span ref={value}>0</span>%
         </span>
       </div>
-      <div className="h-px w-full bg-line">
+      <div className="h-px w-full bg-white/10">
         <div ref={bar} className="h-px origin-left bg-gold" style={{ transform: 'scaleX(0)' }} />
       </div>
     </div>
@@ -58,7 +58,7 @@ export default function Skills() {
               <h3 className="font-display text-2xl text-champagne">{group.title}</h3>
               <ul className="mt-5 flex flex-wrap gap-2">
                 {group.items.map((item) => (
-                  <li key={item} className="rounded-full border border-line px-3 py-1.5 font-mono text-xs text-champagne/80">
+                  <li key={item} className="rounded-full border border-white/10 px-3 py-1.5 font-mono text-xs text-champagne/80">
                     {item}
                   </li>
                 ))}

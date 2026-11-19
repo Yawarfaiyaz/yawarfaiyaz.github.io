@@ -29,13 +29,6 @@ All personal details live in **`src/data/portfolio.config.ts`**:
 
 The dev-only **Customize** panel previews name, tagline, and bio edits live. Changes are not saved; copy the final text into the config file.
 
-## Movie scenes, theme, and cursor
-
-- **Scenes:** `movieScenes` in `portfolio.config.ts` drives the scroll-linked background. Scene 1 covers Hero and About, Scene 2 covers Skills and Projects, and Scene 3 covers Learning, Resume, and Contact. Put clips in `public/videos/scene-1.mp4` (and 2 and 3). Playback is clamped to 0–13 seconds. Until a file exists, a built-in animated silhouette plays.
-- **Cursor colour:** `cursorColorMode: 'live-video'` samples the active scene; `'theme-accent'` uses the theme gold.
-- **Theme:** the sun/moon button switches Dark and Day Mode and is remembered in `localStorage`. The FX button turns the movie layer, grain, and particles on or off.
-- Only use footage you own or have licence to publish. Copyrighted film clips should not be committed to a public repository.
-
 ## Photos
 
 1. Put image files in **`public/images/`** (for example `public/images/portrait.jpg`).

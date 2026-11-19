@@ -8,7 +8,7 @@ export default function DevCustomizer() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="no-print fixed bottom-6 left-6 z-[85] w-[min(20rem,calc(100vw-3rem))]">
+    <div className="no-print fixed bottom-6 right-6 z-[85] w-[min(20rem,calc(100vw-3rem))]">
       <button type="button" onClick={() => setOpen((o) => !o)} className="btn-ghost w-full justify-center !py-2 text-xs">
         {open ? 'Close customizer' : 'Customize (dev)'}
       </button>
@@ -21,7 +21,7 @@ export default function DevCustomizer() {
                 rows={field === 'bio' ? 4 : 1}
                 value={config[field]}
                 onChange={(e) => setConfig({ ...config, [field]: e.target.value })}
-                className="w-full rounded-lg border border-line bg-obsidian p-2 text-champagne outline-none focus:border-gold"
+                className="w-full rounded-lg border border-white/10 bg-obsidian p-2 text-champagne outline-none focus:border-gold"
               />
             </label>
           ))}

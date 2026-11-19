@@ -44,23 +44,6 @@ export interface CaseStudy {
   image?: string;
 }
 
-/**
- * One act of the scroll-driven movie background. Scenes crossfade as the visitor
- * reaches the sections listed in `sections`. Playback is clamped to 0–13 seconds.
- * Drop clips into /public/videos/. Until a file exists, the built-in silhouette plays.
- * To slice ONE clip into three acts, reuse the same `src` with windows 0–4.5, 4.5–9, 9–13.
- */
-export interface MovieScene {
-  id: string;
-  label: string;
-  /** e.g. '/videos/scene-1.mp4'. Use '' to show only the silhouette for this act. */
-  src: string;
-  startTime: number;
-  endTime: number;
-  /** Element ids of the sections this scene plays behind. */
-  sections: string[];
-}
-
 export interface TimelineItem {
   title: string;
   org: string;
@@ -73,12 +56,6 @@ export interface PortfolioConfig {
   tagline: string;
   bio: string;
   email: string;
-  /**
-   * Web3Forms access key (free at https://web3forms.com). Access keys are designed to be
-   * public in client-side forms, so it is safe to commit. Leave the placeholder to use the
-   * mailto: fallback instead.
-   */
-  emailAccessKey: string;
   photo: Photo;
   links: {
     github: string;
@@ -92,9 +69,6 @@ export interface PortfolioConfig {
   education: TimelineItem[];
   certifications: string[];
   resumeSummary: string;
-  movieScenes: MovieScene[];
-  /** 'live-video' samples the playing scene for the cursor colour; 'theme-accent' uses the theme gold. */
-  cursorColorMode: 'live-video' | 'theme-accent';
 }
 
 export const portfolio: PortfolioConfig = {
@@ -102,7 +76,6 @@ export const portfolio: PortfolioConfig = {
   tagline: 'DevOps & Cloud Engineer, automating AWS infrastructure safely',
   bio: 'Aspiring DevOps and Cloud Engineer (B.Tech IT, Class of 2027) building automated, fault-tolerant AWS infrastructure with Terraform, Python (Boto3), GitHub Actions, Docker, and Kubernetes.',
   email: 'asjdbkhbyawar@gmail.com',
-  emailAccessKey: 'YOUR_WEB3FORMS_ACCESS_KEY',
 
   photo: {
     // Default: GitHub avatar. To use a local file instead, set src: '/images/portrait.jpg'
@@ -204,12 +177,4 @@ export const portfolio: PortfolioConfig = {
 
   resumeSummary:
     'Aspiring DevOps and Cloud Engineer (B.Tech IT, Class of 2027) with hands-on experience building automated AWS infrastructure using Terraform, Python (Boto3), and GitHub Actions. Skilled in designing fault-tolerant cloud automation with strict safety guardrails, observability via CloudWatch and SNS, and containerised deployments using Docker and Kubernetes.',
-
-  movieScenes: [
-    { id: 'scene-1', label: 'Act I · The Leap', src: '/videos/scene-1.mp4', startTime: 0, endTime: 13, sections: ['home', 'about'] },
-    { id: 'scene-2', label: 'Act II · The Swing', src: '/videos/scene-2.mp4', startTime: 0, endTime: 13, sections: ['skills', 'projects'] },
-    { id: 'scene-3', label: 'Act III · The Landing', src: '/videos/scene-3.mp4', startTime: 0, endTime: 13, sections: ['learning', 'resume', 'contact'] },
-  ],
-
-  cursorColorMode: 'live-video',
 };
