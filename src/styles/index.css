@@ -92,3 +92,24 @@
   .print-area * { color: #111 !important; border-color: #ccc !important; }
   .no-print, .grain, nav, footer { display: none !important; }
 }
+
+/* Day mode & FX toggle overrides */
+html[data-theme="day"] {
+  --color-obsidian: #f7f3ea;
+  --color-obsidian-2: #efe9dc;
+  --color-obsidian-3: #e5ddc9;
+  --color-champagne: #1a1814;
+  --color-gold: #8c6a14;
+  --color-gold-soft: #a68020;
+  --color-ash: #575248;
+  color-scheme: light;
+}
+html[data-theme="day"] .glass {
+  border-color: rgba(26, 24, 20, 0.12);
+  background-color: rgba(255, 255, 255, 0.72);
+}
+html[data-theme="day"] .btn-ghost {
+  border-color: rgba(26, 24, 20, 0.18);
+}
+
+html[data-fx="off"] .grain { display: none !important; }

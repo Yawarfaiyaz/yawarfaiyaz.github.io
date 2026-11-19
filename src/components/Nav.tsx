@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useConfig } from '../context/ConfigContext';
+import { useUi } from '../context/UiContext';
 
 const links = [
   { href: '#about', label: 'About' },
@@ -12,6 +13,7 @@ const links = [
 
 export default function Nav() {
   const { config } = useConfig();
+  const { theme, toggleTheme, fx, toggleFx } = useUi();
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -32,9 +34,11 @@ export default function Nav() {
             </li>
           ))}
         </ul>
-        <a href="#contact" className="btn-ghost !px-4 !py-2 text-xs md:hidden">
-          Contact
-        </a>
+        <div className="flex items-center gap-2">
+          <button type="button" onClick={toggleTheme} className="glass rounded-full px-3 py-1.5 text-xs text-champagne/90 transition hover:text-gold" aria-label="Toggle theme">{theme === 'dark' ? 'Day' : 'Dark'}</button>
+          <button type="button" onClick={toggleFx} className="glass rounded-full px-3 py-1.5 text-xs text-champagne/90 transition hover:text-gold" aria-label="Toggle visual effects">FX {fx ? 'On' : 'Off'}</button>
+          <a href="#contact" className="btn-ghost !px-4 !py-2 text-xs md:hidden">Contact</a>
+        </div>
       </nav>
     </motion.header>
   );
